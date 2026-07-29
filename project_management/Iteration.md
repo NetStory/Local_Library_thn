@@ -82,3 +82,68 @@ Django 的“应用”不是手机 App，也不是一个独立网站。
     locallibrary 是整栋图书馆，catalog 是其中的图书管理部门。
 
 Django 自带的后台、用户认证、会话管理，其实也都是已经写好的应用。
+
+Iteration-01 done. 2026-07-29
+
+---
+
+# Iteration-02
+
+## Decision
+
+继续推进，完成P3
+
+## New Observations
+
+教程有点乱，硬读有点烦人
+
+## New Decison
+
+1. 确认在P3中我到底要干啥
+2. 确认验收标准
+
+## Deliverable
+
+P3到底要干啥
+![alt text](./assets/I2-01.png)
+
+P3验收标准
+![alt text](./assets/I2-02.png)
+
+Iteration-02 done.
+
+---
+
+# Iteration-03
+
+## Observations
+
+已将教程交给GPT整理并给出逐步执行步骤
+
+## Decision
+
+逐步跟着执行
+
+## Change & Deliverable
+
+写出来catalog/model.py，定义了四个主要数据结构：
+1. Book
+2. Genre
+3. BookInstance
+4. Author
+
+已按照如下步骤进行数据模型迁移，建表，和检查。
+
+```sh
+python manage.py makemigrations
+python manage.py migrate
+python manage.py check
+```
+
+## Notes
+
+genre 在 Book 里，代码上看起来像一个字段；但在数据库的物理结构里，它不是 Book 表里的一格，也不是直接塞进去一个 Genre，它是一个关系管理器
+
+Iteration-03 done. 2026-07-29
+
+---
