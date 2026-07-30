@@ -33,6 +33,9 @@ class BookInstanceAdmin(admin.ModelAdmin):
 
 class BooksInstanceInline(admin.TabularInline): # 水平布局
     model = BookInstance    # 这是在干啥？Inline信息？
+    # Inline 会通过 BookInstance.book 自动筛选当前 Book 的实例。
+    # extra=0 表示不再额外显示 3 个空白的“新增实例”表单。
+    extra = 0
 
 # Register the Admin classes for Book using the decorator
 @admin.register(Book) # @register 装饰器来注册模型（这和 admin.site.register() 

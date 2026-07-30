@@ -176,3 +176,43 @@ Iteration-03 done. 2026-07-29
 Iteration-04 done. 2026-07-30
 
 ---
+
+# Iteration-05
+
+## Observations
+
+![alt text](./assets/I5-01.png)
+
+在BookAdmin页面下，当前虽然设置了bookinstance的内联编辑，但是会显示不是这个book的bookinstance
+
+## Decision
+
+让内联编辑只显示对应的Book的instance
+
+## New Observations
+
+这个后三行只是尚未保存的空白新增表单而已
+
+因此，Django inline 本来就只查询当前 Book 的已有实例；真正需要解决的是隐藏默认的三行空白表单：
+
+```python
+class BooksInstanceInline(admin.TabularInline):
+    model = BookInstance
+    extra = 0
+```
+
+## Change & Deliverable
+
+修改的文件：
+1. `catalog/admin.py`：将 `BooksInstanceInline.extra` 设置为 `0`
+2. `catalog/tests.py`：增加 BookAdmin 内联实例范围测试
+
+增加的功能：
+1. Book 编辑页只显示已经属于当前 Book 的 BookInstance
+2. 不再默认显示 3 个容易被误认为已有实例的空白新增表单
+3. 仍然可以通过 “Add another Book instance” 按需新增实例
+4. 自动测试会检查其他 Book 的实例不会出现在当前 Book 的编辑页
+
+Iteration-05 done. 2026-07-30
+
+---
