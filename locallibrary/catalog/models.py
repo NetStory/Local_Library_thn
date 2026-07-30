@@ -120,6 +120,12 @@ class Book(models.Model):
             # reverse 会把 7 填进 book-detail 对应的 URL 规则里。
         )
 
+    def display_genre(self):    # 这他妈啥机制啊
+        """
+        Creates a string for the genre, This is required to display genre in Admin
+        """
+        return ', '.join([ genre.name for genre in self.genre.all()[:3] ])
+    display_genre.short_description = 'Genre'   # 这又是在干啥
 
 class BookInstance(models.Model):
     id = models.UUIDField(

@@ -147,3 +147,32 @@ genre 在 Book 里，代码上看起来像一个字段；但在数据库的物�
 Iteration-03 done. 2026-07-29
 
 ---
+
+# Iteration-04
+
+## Observations
+
+看起来P4教程质量还可以
+
+## Decision
+
+先和P4跟着做试试，可以就走完，不可以再说
+
+## Change & Deliverable
+
+修改的文件：
+1. `catalog/admin.py`：注册并配置 Author、Genre、Book、BookInstance 的后台管理页面
+2. `catalog/models.py`：新增 `display_genre()`，让后台图书列表可以显示类型
+3. `db.sqlite3`：后台操作产生了数据库更新
+
+增加的功能：
+1. 四个图书馆模型现在都能在 Django Admin 中管理
+2. 作者列表可显示姓名及出生、死亡日期，编辑表单也调整了字段布局
+3. 图书列表可显示书名、作者及最多 3 个类型
+4. 藏书副本列表可按状态和归还日期筛选
+5. 修改了BookInstance的展示，把基本信息和availablity分字段展示，更直观
+6. 增加 BookInstance 内联编辑（可以直接在Book页面管理BookInstance），让 Book 编辑页可以直接查看、新增和修改其馆藏实例
+
+Iteration-04 done. 2026-07-30
+
+---
