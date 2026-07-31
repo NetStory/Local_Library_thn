@@ -24,7 +24,8 @@ urlpatterns = [
 from django.conf.urls import include
 
 urlpatterns += [    # 这样写是为了区分新旧代码
-    path('catalog/', include('catalog.urls')),  # 这他妈是在干啥
+    path('catalog/', include('catalog.urls')),  # 这他妈是在干啥 这就是 include() 的核心：切掉已经匹配的前缀，把剩下的路径继续向下传递。
+    # 只要URL以 catlog/ 开头，后面部分交给 catalog/urls.py继续判断
 ]
 
 from django.views.generic import RedirectView

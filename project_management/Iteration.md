@@ -216,3 +216,61 @@ class BooksInstanceInline(admin.TabularInline):
 Iteration-05 done. 2026-07-30
 
 ---
+
+# Iteration-06
+
+## Observations
+
+P5中文质量教程也还行，但是还是让CodeX整理一下吧
+
+## Decision
+
+让GPT整理一下P5教程，将其包装成更适合我的理解材料
+
+## Deliverable
+
+生成逐步执行教程
+
+Iteration-06 done. 2026-07-31
+
+---
+
+# Iteration-07
+
+## Decision
+
+跟着gpt教程走P5
+
+## Change & Deliverable
+
+更改的文件：
+
+1. `catalog/urls.py`：新增主页路由，将 `/catalog/` 交给 `views.index` 处理，并把路由命名为 `index`
+2. `catalog/views.py`：新增 `index()` View，查询图书、实体副本、可借副本和作者的数量，再通过 context 交给模板
+3. `catalog/templates/base_generic.html`：新增公共基础模板，提供 Bootstrap 页面结构、侧边栏导航、模板区块和静态 CSS 引用
+4. `catalog/templates/index.html`：新增主页模板，继承公共模板并展示图书馆的四项实时统计数据
+5. `catalog/static/css/styles.css`：新增侧边栏样式
+6. `locallibrary/urls.py`：补充 `include()` 如何把剩余路径交给 `catalog/urls.py` 的说明注释
+7. `db.sqlite3`：本地运行期间数据库状态发生变化
+
+增加的功能：
+
+1. `/catalog/` 现在有了实际主页，不再因为 catalog 内没有具体路由而返回 404
+2. 主页会从数据库动态统计并显示图书总数、实体副本总数、当前可借副本数和作者总数
+3. 建立了 `URL → View → Model 查询 → Context → Template → HTML 响应` 的第一条完整页面处理链路
+4. 建立了可供后续图书列表、作者列表和详情页复用的公共模板
+5. 增加 Home、All books、All authors 侧边栏导航；Home 已可使用，另外两个暂时是后续页面的占位链接
+6. 页面会加载 Bootstrap 和本地 CSS，形成基础的两栏布局与侧边栏样式
+
+说明：运行 Django 自动更新了若干 `__pycache__/*.pyc` 文件；这些是 Python 缓存，不属于新增功能。
+
+## Notes
+
+URL       → 决定请求交给哪个 View
+View      → 决定如何处理请求、取什么数据
+Model     → 负责与数据库打交道
+Template  → 决定 HTML 页面长什么样
+
+Iteration-07 done. 2026-07-31
+
+---
