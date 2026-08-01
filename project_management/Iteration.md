@@ -274,3 +274,49 @@ Template  → 决定 HTML 页面长什么样
 Iteration-07 done. 2026-07-31
 
 ---
+
+# Iteration-08
+
+## Decision
+
+让GPT帮我整理P6的学习目标和逐步操作，不要像昨天一样给我的指令的和教程结果不一样，过程可以分阶段来，但是结果一定要和P6一样
+
+## Deliverable
+
+最终要达成的效果：
+1. 书本列表页面
+2. 书本详细页面
+3. 书本列表分页
+4. 作者列表页面
+5. 作者详细页面
+6. 全站导航链接可用
+
+逐步操作指南：
+
+全部生成,存档在GPT中
+
+Iteration-08 done. 2026-08-01
+---
+
+# Iteration-08
+
+## Decision
+
+开始逐步执行P6 GPT 教程
+
+## Change & Deliverable
+
+修改的文件：
+1. `catalog/views.py`：添加书籍、作者的列表与详情视图
+2. `catalog/urls.py`：添加书籍、作者页面路由
+3. `templates/catalog/*.html`：添加列表页和详情页模板
+4. `templates/base_generic.html`：更新导航链接并添加分页组件
+
+添加的功能：
+1. 书籍和作者的列表页、详情页
+2. 列表分页（每页 10 条）
+3. 全站书籍、作者导航链接
+
+Iteration-08 done. 2026-08-31
+
+---

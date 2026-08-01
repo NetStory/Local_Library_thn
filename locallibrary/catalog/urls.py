@@ -13,4 +13,28 @@ path("", views.index)
 
 urlpatterns = [
     path('', views.index, name='index'),    # name 只是给这条 URL 起了一个内部名字。
+
+    path(
+        'books/',
+        views.BookListView.as_view(),   # 这是什么鬼
+        name='books',
+    ),
+
+    path(
+        'book/<int:pk>',    # pk又是啥 将整数命名为pk，传给BookDetailView
+        views.BookDetailView.as_view(),
+        name='book-detail',
+    ),
+
+    path(
+        'authors/',
+        views.AuthorListView.as_view(),
+        name='authors',
+    ),
+
+    path(
+        'author/<int:pk>',
+        views.AuthorDetailView.as_view(),
+        name='author-detail',
+    )
 ]
