@@ -317,6 +317,22 @@ Iteration-08 done. 2026-08-01
 2. 列表分页（每页 10 条）
 3. 全站书籍、作者导航链接
 
-Iteration-08 done. 2026-08-31
+Iteration-08 done. 2026-08-01
+
+---
+
+# Iteration-09
+
+## Decision
+
+完成P7：会话框架
+
+## Change & Deliverable
+
+Change:
+1. `catalog/view.py`: 添加了session记录主页访问次数的功能
+2. `catalog/templates/index.html`: 更新模板以显示访问次数
+
+Iteration-09 done. 2026-08-02
 
 ---

@@ -26,11 +26,17 @@ def index(request): # index view?
 
     num_authors = Author.objects.count()
 
+    # 如果当前session没有这个字段，把这个信息加入session？
+    num_visits = request.session.get('num_visits', 0)
+    request.session['num_visits'] = num_visits + 1
+
+
     context = {
         "num_books" : num_books,
         "num_instances" : num_instances,
         "num_instances_available" : num_instances_available,
         "num_authors" : num_authors,
+        'num_visits' : num_visits
     }
 
     return render(request, "index.html", context)    # 什么是render 什么是view？
