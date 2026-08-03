@@ -38,3 +38,7 @@ urlpatterns = [
         name='author-detail',
     )
 ]
+
+urlpatterns += [
+    path('mybooks/', views.LoanedBooksByUserList.as_view(), name='my-borrowed'),
+]

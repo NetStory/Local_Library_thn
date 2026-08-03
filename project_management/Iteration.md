@@ -336,3 +336,41 @@ Change:
 Iteration-09 done. 2026-08-02
 
 ---
+
+# Iteration-10
+
+## Decision
+
+完成P8：用户授权与许可
+
+## Change & Deliverable
+
+更改的文件：
+
+1. `locallibrary/urls.py`：接入 Django 自带的账户路由，提供登录、退出和密码重置等功能
+2. `locallibrary/settings.py`：配置全局认证模板目录、登录/退出后的跳转地址，并使用控制台邮件后端测试密码重置邮件
+3. `templates/registration/*.html`：新增登录、退出及密码重置流程所需的 7 个模板
+4. `catalog/models.py`：为 `BookInstance` 新增借阅人 `borrower`、逾期判断 `is_overdue` 和“标记已归还”权限
+5. `catalog/migrations/0002_bookinstance_borrower.py` 和 `0003_alter_bookinstance_options.py`：将借阅人字段和自定义权限写入数据库结构
+6. `catalog/admin.py`：在藏书副本后台列表和编辑页中显示、编辑借阅人
+7. `catalog/views.py` 和 `catalog/urls.py`：新增只有登录用户才能访问的 `/catalog/mybooks/` 页面，只查询当前用户借出中的图书并按应还日期排序
+8. `catalog/templates/catalog/bookinstance_list_borrowed_user.html`：新增“我的借阅”列表，并用红色标记逾期项目
+9. `catalog/templates/base_generic.html`：根据登录状态显示用户名、我的借阅、Login 或 Logout；Logout 改为带 CSRF Token 的 POST 表单
+10. `db.sqlite3`：应用新迁移并保存本地借阅与权限相关数据变化
+
+增加的功能：
+
+1. 用户可以登录、退出和重置密码
+2. 登录后侧边栏会显示当前用户和“My Borrowed”入口，未登录时显示 Login
+3. 每个藏书副本可以关联一名借阅人，后台可维护该信息
+4. 用户只能查看自己当前借出的图书，列表每页显示 10 条，逾期图书会高亮提示
+5. 新增 `can_mark_returned` 权限，为后续限制还书操作做准备
+6. 退出成功后固定跳转到登录页面
+
+## Review
+
+本次迭代遇到 Logout 无法正常工作的问题。原因是原来使用 `<a>` 链接退出，浏览器发送的是 GET 请求，而 Django 5.2 的内置 LogoutView 只允许用 POST 修改登录状态。之后将 Logout 改成带 `{% csrf_token %}` 的 POST 表单，并设置 `LOGOUT_REDIRECT_URL = 'login'`，退出后就会安全地跳转到登录页面。
+
+Iteration-10 done. 2026-08-03
+
+---

@@ -2,7 +2,9 @@ import uuid  # 给每一本实体副本生成唯一编号
 
 from django.db import models
 from django.urls import reverse  # 根据 URL 配置中的名字，反向生成具体 URL
+from django.contrib.auth.models import User
 
+from datetime import date
 
 # Create your models here.
 
@@ -258,6 +260,8 @@ class BookInstance(models.Model):
 
     class Meta:
         ordering = ["due_back"]
+
+        permissions = (("can_mark_returned", "Set book as returned"),)
         # 这是干啥用的？
         #
         # Meta 用于设置“整个模型的管理规则”。
@@ -274,6 +278,14 @@ class BookInstance(models.Model):
         # ordering = ["-due_back"]
         #
         # 前面的负号表示倒序，也就是从晚到早。
+    
+    borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+
+    @property
+    def is_overdue(self):
+        if self.due_back and date.today() > self.due_back:
+            return True
+        return False
 
     def __str__(self):
         return f"{self.id} ({self.book.title})"
