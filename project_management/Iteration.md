@@ -374,3 +374,37 @@ Iteration-09 done. 2026-08-02
 Iteration-10 done. 2026-08-03
 
 ---
+
+# Iteration-11
+
+## Decision
+
+完成P9：使用表单
+
+## Change & Deliverable
+
+更改的文件：
+
+1. `catalog/forms.py`：新增 `RenewBookForm`，并校验续借日期不得早于当天、不得超过未来 4 周
+2. `catalog/views.py`：新增馆员续借视图，使用 `can_mark_returned` 权限限制访问；新增作者创建、更新和删除的通用编辑视图
+3. `catalog/urls.py`：新增藏书副本续借路由，以及作者新增、编辑和删除路由
+4. `catalog/templates/catalog/book_renew_librarian.html`：新增续借表单页，显示图书、借阅人、当前应还日期和逾期状态
+5. `catalog/templates/catalog/bookinstance_list_borrowed_user.html`：对具有“Set book as returned”权限的用户显示 Renew 入口
+6. `catalog/templates/catalog/author_form.html`：新增作者创建和编辑共用的表单页
+7. `catalog/templates/catalog/author_confirm_delete.html`：新增作者删除确认页
+8. `db.sqlite3`：保存 `codelancera` 用户的“Set book as returned”权限配置
+
+添加的功能：
+
+1. 为 `codelancera` 授予“Set book as returned”权限，只有获得相应权限的用户才能进入续借页
+2. 馆员可为借出中的藏书副本设置新的应还日期，默认日期为 3 周后
+3. 续借表单会拒绝过去的日期和超过 4 周的日期，通过校验后保存新的应还日期
+4. 新增作者创建、编辑和删除页面，通过 Django 通用编辑视图自动生成并处理表单
+
+## Review
+
+本次迭代将 Django 表单的展示、数据绑定、校验和保存串联起来。续借功能使用自定义 `Form` 承载业务规则，并通过权限装饰器保护视图；作者管理则使用 `CreateView`、`UpdateView` 和 `DeleteView` 减少重复的表单处理代码。
+
+Iteration-11 done. 2026-08-04
+
+---
